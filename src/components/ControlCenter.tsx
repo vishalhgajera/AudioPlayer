@@ -1,7 +1,9 @@
+// src\components\ControlCenter.tsx
+
 import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
-import { IconButton } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ControlCenter = () => {
   const playBackState = usePlaybackState();
@@ -32,17 +34,17 @@ const ControlCenter = () => {
   return (
     <View style={styles.container}>
       <Pressable onPress={skipToPrevious}>
-        <IconButton icon="skip-previous" size={40} iconColor="#FFFFFF" />
+        <Icon name="skip-previous" size={40} color="#FFFFFF" />
       </Pressable>
       <Pressable onPress={() => togglePlayback(playBackState)}>
-        <IconButton
-          icon={playBackState === State.Playing ? 'pause' : 'play'}
+        <Icon
+          name={playBackState === State.Playing ? 'pause' : 'play-arrow'}
           size={75}
-          iconColor="#FFFFFF"
+          color="#FFFFFF"
         />
       </Pressable>
       <Pressable onPress={skipToNext}>
-        <IconButton icon="skip-next" size={40} iconColor="#FFFFFF" />
+        <Icon name="skip-next" size={40} color="#FFFFFF" />
       </Pressable>
     </View>
   );
@@ -54,6 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

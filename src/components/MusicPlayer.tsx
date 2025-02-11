@@ -1,4 +1,4 @@
-// src\screens\MusicPlayer.tsx
+// src\components\MusicPlayer.tsx
 
 import React, {useState} from 'react';
 import {Dimensions, FlatList, Image, StyleSheet, View} from 'react-native';
@@ -9,9 +9,9 @@ import TrackPlayer, {
   useTrackPlayerEvents,
 } from 'react-native-track-player';
 import {playListData} from '../constants';
-import SongInfo from '../components/SongInfo';
-import SongSlider from '../components/SongSlider';
-import ControlCenter from '../components/ControlCenter';
+import SongInfo from './SongInfo';
+import SongSlider from './SongSlider';
+import ControlCenter from './ControlCenter';
 
 const {width} = Dimensions.get('window');
 
