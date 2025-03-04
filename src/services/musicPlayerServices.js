@@ -67,7 +67,6 @@ export async function addTrack() {
 
         if (newQueue.length > 0) {
             await TrackPlayer.skip(0);  // Set the first track
-            await TrackPlayer.play();   // Start playback
             console.log("Playback started with first track.");
         }
 
