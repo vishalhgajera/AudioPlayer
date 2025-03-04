@@ -1,13 +1,15 @@
 // src\screens\WebPlayerScreen.tsx
 
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 
 const WebPlayerScreen = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <WebView
+        style={{backgroundColor:'#001d23'}}
         source={{
           html: `
             <!DOCTYPE html>
@@ -25,7 +27,7 @@ const WebPlayerScreen = () => {
           `,
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -5,16 +5,24 @@ import TrackPlayer, { Event, RepeatMode,    Capability,
 
 import {playListData} from '../constants'
 
-export async function setupPlayer(){
-    let isSetup = false;
+export async function setupPlayer() {
     try {
-        await TrackPlayer.getCurrentTrack()
-        isSetup = true
+        // Check if TrackPlayer is already initialized
+        const currentTrack = await TrackPlayer.getCurrentTrack();
+        if (currentTrack !== null) {
+            console.log("TrackPlayer is already set up.");
+            return true;
+        }
     } catch (error) {
-        await TrackPlayer.setupPlayer()
+        console.log("TrackPlayer is not set up, initializing...");
+    }
+
+    try {
+        // Setup TrackPlayer
+        await TrackPlayer.setupPlayer();
         await TrackPlayer.updateOptions({
             android: {
-                appKilledPlaybackBehavior: AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
+                appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback,
             },
             capabilities: [
                 Capability.Play,
@@ -32,15 +40,43 @@ export async function setupPlayer(){
             ],
             compactCapabilities: [Capability.Play, Capability.Pause],
         });
-        isSetup = true
-    } finally{
-        return isSetup;
+
+        console.log("TrackPlayer setup completed.");
+        return true;
+    } catch (error) {
+        console.error("Error in setupPlayer:", error);
+        return false;
     }
 }
 
-export async function addTrack(){
-    await TrackPlayer.add(playListData)
-    await TrackPlayer.setRepeatMode(RepeatMode.Queue)
+export async function addTrack() {
+    try {
+        const queue = await TrackPlayer.getQueue();
+        console.log("Queue before adding:", queue);
+
+        if (queue.length > 0) {
+            console.log("Tracks already added.");
+            return;
+        }
+
+        console.log("Adding tracks...");
+        await TrackPlayer.add(playListData, 0);
+
+        const newQueue = await TrackPlayer.getQueue();
+        console.log("Queue after adding:", newQueue);
+
+        if (newQueue.length > 0) {
+            await TrackPlayer.skip(0);  // Set the first track
+            await TrackPlayer.play();   // Start playback
+            console.log("Playback started with first track.");
+        }
+
+        await TrackPlayer.setRepeatMode(RepeatMode.Queue);
+        console.log("Tracks added successfully.");
+    } catch (error) {
+        console.error("Error adding tracks:", error);
+        throw error;
+    }
 }
 
 

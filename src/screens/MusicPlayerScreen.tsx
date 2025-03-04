@@ -3,22 +3,29 @@
 import React, {useState, useEffect} from 'react';
 import {
   ActivityIndicator,
-  SafeAreaView,
+  StyleSheet
 } from 'react-native';
 import { addTrack, setupPlayer } from '../services/musicPlayerServices';
 import MusicPlayer from '../components/MusicPlayer';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function MusicPlayerScreen(): JSX.Element {
   const [isPlayerReady, setIsPaylerReady] = useState(false);
 
   async function setup() {
-    let isSetup = await setupPlayer();
-
-    if (isSetup) {
-      await addTrack();
+    try {
+      let isSetup = await setupPlayer();
+      console.log("isSetup", isSetup);
+      
+      if (isSetup) {
+        await addTrack();
+      }
+  
+      setIsPaylerReady(isSetup);
+    } catch (error) {
+      console.error("track setup error :",error);
+      
     }
-
-    setIsPaylerReady(isSetup);
   }
 
   useEffect(() => {
@@ -27,7 +34,7 @@ function MusicPlayerScreen(): JSX.Element {
 
   if (!isPlayerReady) {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <ActivityIndicator />
       </SafeAreaView>
     );
@@ -37,6 +44,15 @@ function MusicPlayerScreen(): JSX.Element {
       <MusicPlayer />
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#001d23',
+  },
+})
 
 
 export default MusicPlayerScreen;

@@ -30,11 +30,6 @@ function AppStack(): JSX.Element {
           component={WebPlayerScreen}
           options={({ navigation }) => ({
             title: 'WebView Player',
-            headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('MusicPlayer')} style={{ marginRight: 15 }}>
-                <Text style={{ color: '#fff' }}>Native</Text>
-              </TouchableOpacity>
-            ),
           })}
         />
       </Stack.Navigator>

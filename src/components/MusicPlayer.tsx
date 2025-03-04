@@ -1,22 +1,40 @@
 // src\components\MusicPlayer.tsx
 
-import React, {useState} from 'react';
-import {Dimensions, FlatList, Image, StyleSheet, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Dimensions, Image, StyleSheet, View} from 'react-native';
 
 import TrackPlayer, {
   Event,
   Track,
   useTrackPlayerEvents,
 } from 'react-native-track-player';
-import {playListData} from '../constants';
 import SongInfo from './SongInfo';
 import SongSlider from './SongSlider';
 import ControlCenter from './ControlCenter';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const {width} = Dimensions.get('window');
 
 const MusicPlayer = () => {
   const [track, setTrack] = useState<Track | null>();
+
+  useEffect(() => {
+    async function fetchCurrentTrack() {
+      await new Promise(resolve => setTimeout(resolve, 500)); // Delay to ensure tracks are added
+  
+      const currentTrackIndex = await TrackPlayer.getCurrentTrack();
+      console.log("currentTrackIndex", currentTrackIndex); // Debug log
+  
+      if (currentTrackIndex !== null) {
+        const currentTrack = await TrackPlayer.getTrack(currentTrackIndex);
+        setTrack(currentTrack);
+      }
+    }
+  
+    fetchCurrentTrack();
+  }, []);
+  
+  
 
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
     switch (event.type) {
@@ -26,10 +44,10 @@ const MusicPlayer = () => {
         break;
     }
   });
-
-  const renderArtWork = () => {
-    return (
-      <View style={styles.listArtWrapper}>
+  
+  return (
+    <SafeAreaView style={styles.container}>
+       <View style={styles.listArtWrapper}>
         <View style={styles.albumContainer}>
           {track?.artwork && (
             <Image
@@ -39,22 +57,11 @@ const MusicPlayer = () => {
           )}
         </View>
       </View>
-    );
-  };
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        horizontal
-        data={playListData}
-        renderItem={renderArtWork}
-        keyExtractor={song => song.id.toString()}
-      />
 
       <SongInfo track={track} />
       <SongSlider />
       <ControlCenter />
-    </View>
+    </SafeAreaView>
   );
 };
 
