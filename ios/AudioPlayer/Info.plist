@@ -41,6 +41,7 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 		<string>processing</string>
+		<string>airplay</string>
 		<string>bluetooth-peripheral</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

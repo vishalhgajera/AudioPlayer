@@ -21,6 +21,8 @@ export async function setupPlayer() {
         // Setup TrackPlayer
         await TrackPlayer.setupPlayer();
         await TrackPlayer.updateOptions({
+            // stopWithApp: false, // Keep audio playing even when the app is closed
+            // alwaysPauseOnInterruption: true,
             android: {
                 appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback,
             },
@@ -29,16 +31,19 @@ export async function setupPlayer() {
                 Capability.Pause,
                 Capability.SkipToNext,
                 Capability.SkipToPrevious,
-                Capability.Stop,
+                Capability.Stop
             ],
-            notificationCapabilities: [
+            notificationCapabilities: [ // This is needed for iOS notifications
                 Capability.Play,
                 Capability.Pause,
                 Capability.SkipToNext,
                 Capability.SkipToPrevious,
-                Capability.Stop,
+                Capability.Stop
             ],
-            compactCapabilities: [Capability.Play, Capability.Pause],
+            compactCapabilities: [
+                Capability.Play,
+                Capability.Pause
+            ]
         });
 
         console.log("TrackPlayer setup completed.");
@@ -94,4 +99,4 @@ export async function playbackService (){
         TrackPlayer.skipToPrevious()
     })
 
-}
+  }

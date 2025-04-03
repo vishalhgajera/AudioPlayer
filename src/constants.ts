@@ -10,7 +10,7 @@ export const playListData: Track[] = [
       album: 'Champagne Talk',
       artwork:
         'https://c.saavncdn.com/734/Champagne-Talk-Hindi-2022-20221008011951-500x500.jpg',
-      url: require('./assets/audio/one.mp3'),
+      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
     },
     {
       id: 2,
@@ -19,7 +19,7 @@ export const playListData: Track[] = [
       album: 'Shershaah',
       artwork:
         'https://c.saavncdn.com/238/Shershaah-Original-Motion-Picture-Soundtrack--Hindi-2021-20210815181610-500x500.jpg',
-      url: require('./assets/audio/two.mp3'),
+      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
     },
     {
       id: 3,
@@ -28,7 +28,7 @@ export const playListData: Track[] = [
       album: 'Brahmastra',
       artwork:
         'https://c.saavncdn.com/191/Kesariya-From-Brahmastra-Hindi-2022-20220717092820-500x500.jpg',
-      url: require('./assets/audio/three.mp3'),
+      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
     },
     {
       id: 4,
@@ -37,7 +37,7 @@ export const playListData: Track[] = [
       album: 'Pal Pal Dil Ke Paas',
       artwork:
         'https://c.saavncdn.com/328/Pal-Pal-Dil-Ke-Paas-Hindi-2019-20200420150444-500x500.jpg',
-      url: require('./assets/audio/four.mp3'),
+      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
     },
     {
       id: 5,
@@ -46,7 +46,7 @@ export const playListData: Track[] = [
       album: 'Pathaan',
       artwork:
         'https://c.saavncdn.com/807/Pathaan-Hindi-2022-20221222104158-500x500.jpg',
-      url: require('./assets/audio/five.mp3'),
+      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
     },
   ];
   
